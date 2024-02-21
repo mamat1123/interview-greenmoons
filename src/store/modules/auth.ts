@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import bcrypt from "bcryptjs";
-import type { RootState } from "../index";
 
 // TODO: waiting integrate with redux-persist
 
@@ -49,7 +48,7 @@ export const AuthSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchLoginMockToken.pending, (state, action) => {
+      .addCase(fetchLoginMockToken.pending, (state) => {
         state.status = "loading";
       })
       .addCase(fetchLoginMockToken.fulfilled, (state, action) => {
@@ -70,7 +69,7 @@ export const AuthSlice = createSlice({
         state.error = action.error.message || null;
       })
 
-      .addCase(fetchLogoutRemoveToken.fulfilled, (state, action) => {
+      .addCase(fetchLogoutRemoveToken.fulfilled, (state) => {
         state.status = "succeeded";
         localStorage.removeItem("token");
       });
@@ -81,7 +80,7 @@ export const AuthSlice = createSlice({
 
 export default AuthSlice.reducer;
 
-export const isSessionExpired = (state: RootState) => {
+export const isSessionExpired = () => {
   const token = localStorage.getItem("token");
   if (!token) return true;
   const tokenList = localStorage.getItem("tokenList");
@@ -91,5 +90,5 @@ export const isSessionExpired = (state: RootState) => {
   if (expireAt < new Date().getTime()) return true;
   return false;
 };
-export const token = (state: RootState) => localStorage.getItem("token");
-export const tokenList = (state: RootState) => JSON.parse(localStorage.getItem("tokenList") || "{}");
+export const token = () => localStorage.getItem("token");
+export const tokenList = () => JSON.parse(localStorage.getItem("tokenList") || "{}");

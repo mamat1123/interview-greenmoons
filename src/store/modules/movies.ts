@@ -11,10 +11,6 @@ interface MovieState {
   error: string | null;
 }
 
-interface Movie {
-  image: string;
-}
-
 interface CreateFavMovie {
   id: number;
   token: string | null;
@@ -58,7 +54,7 @@ export const MoviesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchMovies.pending, (state, action) => {
+      .addCase(fetchMovies.pending, (state) => {
         state.status = "loading";
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
@@ -105,6 +101,7 @@ export const selectFavMoviesByToken = (
   state: RootState,
   token: string | null
 ) => {
+  state;
   if (!token) return [];
   const favMovies = JSON.parse(localStorage.getItem("favMovies") || "{}");
   return favMovies[token] || [];

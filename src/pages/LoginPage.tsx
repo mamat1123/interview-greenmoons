@@ -4,13 +4,10 @@ import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { alpha, useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
@@ -23,7 +20,6 @@ import { fetchLoginMockToken, isSessionExpired } from "../store/modules/auth";
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
 
   const router = useRouter();

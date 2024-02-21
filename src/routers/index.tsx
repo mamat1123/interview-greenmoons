@@ -4,7 +4,6 @@ import LoginPage from '../pages/LoginPage';
 import MovieListPage from '../pages/MovieListPage';
 import MovieFavListPage from '../pages/MovieFavListPage';
 
-import Nav from '../layouts/Nav'
 import ProtectedRoutes from '../routers/ProtectedRoute'
 
 
