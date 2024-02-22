@@ -27,10 +27,21 @@ export const fetchLoginMockToken = createAsyncThunk(
   "auth/loginMockToken",
   async (loginData: Login) => {
     const compareAuthData: string = loginData.username + loginData.password;
-    // TODO: Fix cannot get salt from ENV VITE_SALT_HASH_PASSWORD
+    console.log(
+      "SALT",
+      import.meta.env.VITE_SALT_HASH_PASSWORD || "$2a$10$zZPQjN9sDqzqXfZ6oXWJU."
+    );
+    bcrypt.hash(
+      compareAuthData,
+      "$2a$10$zZPQjN9sDqzqXfZ6oXWJU.",
+      function (err, hash) {
+        console.log("hash", hash);
+        console.log("err", err);
+      }
+    );
     const token = bcrypt.hashSync(
       compareAuthData,
-      "$2a$10$zZPQjN9sDqzqXfZ6oXWJU."
+      import.meta.env.VITE_SALT_HASH_PASSWORD || "$2a$10$zZPQjN9sDqzqXfZ6oXWJU."
     );
     return token;
   }
