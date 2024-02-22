@@ -27,10 +27,12 @@ export const fetchLoginMockToken = createAsyncThunk(
   "auth/loginMockToken",
   async (loginData: Login) => {
     const compareAuthData: string = loginData.username + loginData.password;
+    console.log('fetchLoginMockToken: compareAuthData', compareAuthData)
     const token = bcrypt.hashSync(
       compareAuthData,
       import.meta.env.VITE_SALT_HASH_PASSWORD
     );
+    console.log('fetchLoginMockToken: token', token)
     return token;
   }
 );
@@ -82,12 +84,16 @@ export default AuthSlice.reducer;
 
 export const isSessionExpired = () => {
   const token = localStorage.getItem("token");
+  console.log('token', token)
   if (!token) return true;
   const tokenList = localStorage.getItem("tokenList");
+  console.log('tokenList', tokenList)
   if (!tokenList) return true;
   const expireAt = JSON.parse(tokenList)[token];
   if (!expireAt) return true;
+  console.log('expireAt', expireAt)
   if (expireAt < new Date().getTime()) return true;
+  console.log('expireAt < new Date().getTime()', expireAt < new Date().getTime())
   return false;
 };
 export const token = () => localStorage.getItem("token");
