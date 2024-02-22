@@ -27,21 +27,9 @@ export const fetchLoginMockToken = createAsyncThunk(
   "auth/loginMockToken",
   async (loginData: Login) => {
     const compareAuthData: string = loginData.username + loginData.password;
-    console.log(
-      "SALT",
-      import.meta.env.VITE_SALT_HASH_PASSWORD || "$2a$10$zZPQjN9sDqzqXfZ6oXWJU."
-    );
-    bcrypt.hash(
-      compareAuthData,
-      "$2a$10$zZPQjN9sDqzqXfZ6oXWJU.",
-      function (err, hash) {
-        console.log("hash", hash);
-        console.log("err", err);
-      }
-    );
     const token = bcrypt.hashSync(
       compareAuthData,
-      import.meta.env.VITE_SALT_HASH_PASSWORD || "$2a$10$zZPQjN9sDqzqXfZ6oXWJU."
+      import.meta.env.VITE_SALT_HASH_PASSWORD
     );
     return token;
   }
@@ -72,8 +60,7 @@ export const AuthSlice = createSlice({
         // };
         localStorage.setItem("token", action.payload);
         const expireAt: number =
-          new Date().getTime() +
-          Number(import.meta.env.VITE_SESSION_EXPIRE) * 1000;
+          new Date().getTime() + (Number(import.meta.env.VITE_SESSION_EXPIRE) * 1000);
         const tokenList = { ...state.tokenList, [action.payload]: expireAt };
         localStorage.setItem("tokenList", JSON.stringify(tokenList));
       })
@@ -104,5 +91,4 @@ export const isSessionExpired = () => {
   return false;
 };
 export const token = () => localStorage.getItem("token");
-export const tokenList = () =>
-  JSON.parse(localStorage.getItem("tokenList") || "{}");
+export const tokenList = () => JSON.parse(localStorage.getItem("tokenList") || "{}");
