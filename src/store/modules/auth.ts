@@ -27,12 +27,12 @@ export const fetchLoginMockToken = createAsyncThunk(
   "auth/loginMockToken",
   async (loginData: Login) => {
     const compareAuthData: string = loginData.username + loginData.password;
-    console.log('fetchLoginMockToken: compareAuthData', compareAuthData)
+    console.log('fetchLoginMockToken: compareAuthData', compareAuthData,  import.meta.env.VITE_SALT_HASH_PASSWORD)
     const token = bcrypt.hashSync(
       compareAuthData,
       import.meta.env.VITE_SALT_HASH_PASSWORD
     );
-    console.log('fetchLoginMockToken: token', token)
+    console.log('fetchLoginMockToken: token', import.meta.env.VITE_SALT_HASH_PASSWORD)
     return token;
   }
 );
