@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 
 // TODO: waiting integrate with redux-persist
 
